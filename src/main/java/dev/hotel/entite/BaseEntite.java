@@ -6,10 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.Type;
+
 @MappedSuperclass
 public class BaseEntite {
 
 	@Id
+	@Type(type="uuid-char")
     private UUID uuid;
 
     public BaseEntite() {

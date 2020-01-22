@@ -30,13 +30,13 @@ public class ClientsController {
 		this.clientrepository = clientrepository;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "client")
+	@RequestMapping(method = RequestMethod.GET, path = "/client")
 	public List<Client> retourneListeClients() {
 		return this.clientrepository.findAll();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params= "nom")
-	public List<Client> retourneNomParticulier(@Param("nom") String nomParticulier) {
+	public List<Client> retourneNomParticulier(@RequestParam("nom") String nomParticulier) {
 		if (this.clientrepository.findAll().isEmpty() == true) {
 			return new ArrayList<>();
 		} else if (this.clientrepository.findByNom(nomParticulier) == null) {
@@ -47,5 +47,18 @@ public class ClientsController {
 		}
 	}
 
+	@RequestMapping (method = RequestMethod.POST)
+	public ResponseEntity<?> postClient(@RequestBody Client postclient) {
+		List<Client> listeClientsTrouves = this.clientrepository.findByNomAndPrenoms(postclient.getNom(), postclient.getPrenoms());
 		
+		if(!listeClientsTrouves.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur type 404 : Le client existe déjà");}
+				
+		else {	Client nouveauclient = new Client();
+		nouveauclient.setNom(postclient.getNom().toUpperCase());
+		nouveauclient.setPrenoms(postclient.getPrenoms().toUpperCase());
+		this.clientrepository.save(nouveauclient);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nouveauclient);	
+		 }
+		 };
 }
