@@ -12,7 +12,7 @@ import org.hibernate.annotations.Type;
 public class BaseEntite {
 
 	@Id
-	@Type(type="uuid-char")
+	@org.hibernate.annotations.Type(type="uuid-char")
     private UUID uuid;
 
     public BaseEntite() {

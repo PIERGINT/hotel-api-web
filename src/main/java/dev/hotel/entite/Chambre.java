@@ -14,7 +14,6 @@ public class Chambre extends BaseEntite {
     private Float surfaceEnM2;
     
     @ManyToOne
-    @JoinColumn(name="hot_uuid")
     private Hotel hotel;
 
     public Chambre() {

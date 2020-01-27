@@ -1,5 +1,8 @@
 package dev.hotel;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -10,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dev.hotel.api.ChambreRepository;
 import dev.hotel.api.ClientRepository;
+import dev.hotel.api.ReservationRepository;
 import dev.hotel.entite.Chambre;
 import dev.hotel.entite.Client;
 import dev.hotel.entite.Hotel;
+import dev.hotel.entite.ReservationRequest;
+
 
 @Component
 public class Startup {
@@ -31,6 +37,7 @@ public class Startup {
 
 	Hotel hotel = new Hotel();
 	Hotel hotel2 = new Hotel();
+	
 	@EventListener(ContextRefreshedEvent.class)
 	public void init() {
 		if (this.clientRepository.count() == 0) {
@@ -65,6 +72,7 @@ public class Startup {
 		}
 		
 		if (this.chambreRepository.count() == 0 && this.hotelRepository.count() != 0 ) {
+			
 			Chambre chambre = new Chambre();
 			chambre.setNumero("1");
 			chambre.setSurfaceEnM2(15.50f);
@@ -96,5 +104,6 @@ public class Startup {
 			this.chambreRepository.save(chambre4);
 			
 		}
+		
 	}
 }

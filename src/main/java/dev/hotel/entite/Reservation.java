@@ -23,10 +23,10 @@ public class Reservation extends BaseEntite {
     private Client client;
     
     @ManyToMany
-    @JoinTable(name="reservation",
-    joinColumns= @JoinColumn(name="uuid_res", referencedColumnName="uuid"),
-    	    inverseJoinColumns= @JoinColumn(name="uuid_cha", referencedColumnName="uuid")
-    )
+   // @JoinTable(name="reservation",
+   // joinColumns= @JoinColumn(name="uuid_res", referencedColumnName="uuid"),
+    //	    inverseJoinColumns= @JoinColumn(name="uuid_cha", referencedColumnName="uuid")
+    //)
     private List<Chambre> chambres = new ArrayList<>();
 
     public Reservation() {
@@ -70,4 +70,11 @@ public class Reservation extends BaseEntite {
     public void setChambres(List<Chambre> chambres) {
         this.chambres = chambres;
     }
+
+	@Override
+	public String toString() {
+		return "Reservation [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", client=" + client + ", chambres="
+				+ chambres + "]";
+	}
+    
 }
