@@ -36,12 +36,20 @@ public class ReservationController {
 		this.chambrerepository = chambrerepository;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "listereservations")
+	public List<Reservation> retourneResas() {
+		return this.reservationrepository.findAll();
+	}
 	@RequestMapping(method = RequestMethod.POST, path = "reservation")
 	public ResponseEntity<?> postReservation(@RequestBody ReservationRequest newResa) {
 
 		Reservation resabody = new Reservation();
 		ResponseEntity<?> reponse = null;
 		List<Chambre> chambre = new ArrayList<>();
+		if (newResa.getDateDebut().isAfter(newResa.getDateFin()) == true) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Erreur type 404 : La date d'arrivée doit être antérieure à la date de départ");
+		}
 		if (this.clientrepository.findById(newResa.getClientId()).isPresent()) {
 
 			Client client = this.clientrepository.findById(newResa.getClientId()).get();
@@ -58,13 +66,12 @@ public class ReservationController {
 					resabody.setClient(client);
 					reponse = ResponseEntity.status(HttpStatus.CREATED).body(resabody);
 					this.reservationrepository.save(resabody);
-					
+
 				} else if (!this.chambrerepository.findById(c).isPresent()) {
 					reponse = ResponseEntity.status(HttpStatus.BAD_REQUEST)
-							.body("Erreur type 404 : la chambre n’existe pas");
-				} else if (newResa.getDateDebut().isAfter(newResa.getDateFin()) == true) {
-					reponse = ResponseEntity.status(HttpStatus.BAD_REQUEST)
-							.body("Erreur type 404 : La date d'arrivée doit être antérieure à la date de départ");
+							.body("Erreur type 404 : La chambre n’existe pas");
+					break;
+
 				}
 			}
 
@@ -72,7 +79,7 @@ public class ReservationController {
 			reponse = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur type 404 : Client non trouvé");
 
 		}
-		
+
 		return reponse;
 
 	}
