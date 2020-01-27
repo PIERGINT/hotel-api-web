@@ -1,4 +1,4 @@
-package dev.hotel.api;
+package dev.hotel.repository;
 
 import java.util.List;
 import java.util.UUID;

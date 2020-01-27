@@ -5,11 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.sun.istack.NotNull;
+
 
 public class ReservationRequest {
+	@NotNull
 	private LocalDate dateDebut;
+	
+	@NotNull
 	private LocalDate dateFin;
+	@NotNull
 	private UUID clientId;
+	@NotNull
 	private List<UUID> chambreId = new ArrayList<>();
 
 	public ReservationRequest(LocalDate dateDebut, LocalDate dateFin, UUID clientId, List<UUID> chambreId) {

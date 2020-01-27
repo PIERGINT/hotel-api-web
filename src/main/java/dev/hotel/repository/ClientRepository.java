@@ -1,4 +1,4 @@
-package dev.hotel.api;
+package dev.hotel.repository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,5 +20,6 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 			List<Client> findByNom(String nom);
 			
 			List<Client> findByNomAndPrenoms(String nom, String prenoms);
+			
 			Optional<Client> findById(UUID clientId);
 }

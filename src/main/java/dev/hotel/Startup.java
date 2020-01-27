@@ -11,13 +11,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import dev.hotel.api.ChambreRepository;
-import dev.hotel.api.ClientRepository;
-import dev.hotel.api.ReservationRepository;
 import dev.hotel.entite.Chambre;
 import dev.hotel.entite.Client;
 import dev.hotel.entite.Hotel;
 import dev.hotel.entite.ReservationRequest;
+import dev.hotel.repository.ChambreRepository;
+import dev.hotel.repository.ClientRepository;
+import dev.hotel.repository.HotelRepository;
+import dev.hotel.repository.ReservationRepository;
 
 
 @Component
